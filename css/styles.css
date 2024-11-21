@@ -1,31 +1,5 @@
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
 
-.container {
-    text-align: center;
+.video-container {
+    max-width: 60%; /* Reduce el ancho al 60% */
+    margin: 0 auto; /* Centra el video horizontalmente */
 }
-
-button {
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-form {
-    margin: 20px;
-}
-
-select, input {
-    padding: 10px;
-    margin: 5px;
-}
-

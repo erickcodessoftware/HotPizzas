@@ -65,35 +65,28 @@ if (isset($branch_id)) {
 
         <?php
 if (isset($_POST['delete_reservation'])) {
-    if (isset($_POST['reservation_id']) && isset($_POST['branch_id'])) {
+    if (!empty($_POST['reservation_id']) && !empty($_POST['branch_id'])) {
         $reservation_id = $_POST['reservation_id'];
         $branch_id = $_POST['branch_id'];
 
-        // Eliminar la reserva
         $deleteQuery = "DELETE FROM reservations WHERE id = ? AND branch_id = ?";
         $stmt = $conn->prepare($deleteQuery);
         $stmt->bind_param("ii", $reservation_id, $branch_id);
 
         if ($stmt->execute()) {
-            // Actualizar mesas disponibles
             $updateQuery = "UPDATE branches SET available_tables = available_tables + 1 WHERE id = ?";
             $stmt = $conn->prepare($updateQuery);
             $stmt->bind_param("i", $branch_id);
 
             if ($stmt->execute()) {
-                // Redirigir solo después de que la eliminación y actualización se hayan ejecutado correctamente
                 header("Location: view_reservations.php?branch_id=" . $branch_id);
-                exit();  // Evitar que el resto del código se ejecute
-            } else {
-                echo "Error al actualizar las mesas disponibles.";
+                exit(); // Asegúrate de que el script se detiene aquí.
             }
-        } else {
-            echo "Error al eliminar la reserva.";
         }
-    } else {
-        echo "Faltan datos de la reserva o la sucursal.";
     }
+    echo "Error al procesar la solicitud.";
 }
+
 ?>
 
     </div>
